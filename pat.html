@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>❤️ Papatya Aşk Mesajı ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    .message {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      text-align: center;
+      white-space: pre-line;
+    }
+    svg {
+      display: block;
+      margin: auto;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="message" id="loveMessage">❤️</div>
+  <svg id="mySVG" width="1000" height="1000">
+    <line x1="500" y1="610" x2="500" y2="1000" stroke="green" stroke-width="10"> </line>
+    <path d="M 510 910 A 90 90 0 0 0 606 800" fill="green" stroke="" stroke-width="2" />
+    <path d="M 510 911 A 90 90 0 0 1 607 800" fill="green" stroke="" stroke-width="2" />
+    <g transform="translate(1000,30) scale(-1,1)">
+      <path d="M 510 910 A 90 90 0 0 0 606 800" fill="green" stroke="" stroke-width="2" />
+      <path d="M 510 911 A 90 90 0 0 1 607 800" fill="green" stroke="" stroke-width="2" />
+    </g>
+  </svg>
+
+  <script>
+    const mySVG = document.getElementById("mySVG");
+    const messageBox = document.getElementById("loveMessage");
+
+    const messages = [
+      "Seviyor", "Sevmiyor", "Şaka yaptım, seviyor",
+      "Evet hala seviyor", "Sevmekten vazgeçmicek", "Belkızzz sana bişi demem lazım",
+      "Ama önce tüm yaprakları bitirmen lazım",
+      "Evett böyle tek tek tüm yaprakları kopart", "Bu aradaaaaa",
+      "SEN", "GERÇEK", "MİSİNNNN",
+      "YAAAAAA", "Çok tatlısın biliyorsun değil mi?",
+      "Senden bir fazlası yok", "Sen ne kadar güzelsen en üstü orası",
+      "Ve çitayı arşa çıkarmışsın",
+      "Ve senin güzelliğinden gözlerim bile etkilendi",
+      "Evet, gözlüğü o yüzden taktım ",
+      "Işık saçıyorsunn", "Güneş gibiii",
+      "Bak güneşeee", "kıskandı ağlıyor",
+      "Ama bak o şimdi söndü", "ve sen hala burdasın ve ışık saçıyorsun",
+      "Ay da senin güzelliğine hayran kaldı, görmeye geldi",
+      "Davetsiz misafir var bi dakika...", "...",
+      "Geldim tamam son yaprağı çek",
+      "Tadaaaaa! :) ııı bana bi vursanaaaaa",
+    ];
+
+    let currentIndex = 0;
+    const totalLeaves = 30;
+
+    for (let i = 0; i < totalLeaves; i++) {
+      const angle = i * (360 / totalLeaves);
+      const id = `leaf${i}`;
+      const el = `<ellipse id="${id}" cx="685" cy="500" rx="100" ry="15"
+                  fill="white"
+                  transform="rotate(${angle} 500 500)"
+                  style="cursor: pointer;" />`;
+      mySVG.insertAdjacentHTML("beforeend", el);
+      const leaf = document.getElementById(id);
+      leaf.addEventListener("click", () => dropLeaf(leaf, angle));
+    }
+
+    mySVG.insertAdjacentHTML("beforeend", `<circle cx="500" cy="500" r="110" fill="#f0fc0a" id="centerFlower"/>`);
+
+    function dropLeaf(leaf, angle) {
+      if (!leaf || leaf.removed) return;
+      leaf.removed = true;
+
+      const randomX = Math.floor(Math.random() * 200 - 100);
+      const randomY = Math.floor(Math.random() * 100 + 150);
+      const newTransform = `rotate(${angle} 500 500) translate(${randomX} ${randomY}) rotate(60)`;
+      leaf.setAttribute("transform", newTransform);
+      leaf.style.transition = "all 1s ease-out";
+      leaf.style.opacity = "0";
+
+      setTimeout(() => leaf.remove(), 1000);
+      messageBox.textContent = messages[currentIndex] || "❤️";
+
+      if (currentIndex === 17) {
+        const classes = `
+        <path d="M 410 450 A 40 50 0 1 0 480 450" fill="black" stroke="" stroke-width="2" /> 
+        <path d="M 520 450 A 40 50 0 1 0 590 450" fill="black" stroke="" stroke-width="2" />  
+        <line x1="470" y1 = "460" x2="530" y2 ="460" stroke="black" stroke-width="5"> </line> 
+        <line x1="470" y1 = "480" x2="530" y2 ="480" stroke="black" stroke-width="5" /> `;
+        mySVG.insertAdjacentHTML("beforeend", classes );
+      }
+
+      if (currentIndex === 21) {
+        mySVG.insertAdjacentHTML("beforeend", `<circle cx="850" cy="200" r="40" fill="orange" id="sun" />`);
+        for (let i = 0; i < 8; i++) {
+          const angle = i * 45;
+          const length = 60;
+          const x1 = 850 + Math.cos(angle * Math.PI / 180) * 40;
+          const y1 = 200 + Math.sin(angle * Math.PI / 180) * 40;
+          const x2 = 850 + Math.cos(angle * Math.PI / 180) * (40 + length);
+          const y2 = 200 + Math.sin(angle * Math.PI / 180) * (40 + length);
+          mySVG.insertAdjacentHTML("beforeend", `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="orange" stroke-width="3" />`);
+        }
+        mySVG.insertAdjacentHTML("beforeend", `<circle cx="840" cy="200" r="5" fill="aqua" />`);
+        mySVG.insertAdjacentHTML("beforeend", `<circle cx="860" cy="200" r="5" fill="aqua" />`);
+        mySVG.insertAdjacentHTML("beforeend", `<circle cx="840" cy="220" r="4" fill="aqua" />`);
+        mySVG.insertAdjacentHTML("beforeend", `<circle cx="860" cy="220" r="4" fill="aqua" />`);
+      }
+
+      if(currentIndex == 23){
+        for (let i = 0; i < 8; i++) {
+          const angle = i * 45;
+          const length = 60;
+          const x1 = 850 + Math.cos(angle * Math.PI / 180) * 40;
+          const y1 = 200 + Math.sin(angle * Math.PI / 180) * 40;
+          const x2 = 850 + Math.cos(angle * Math.PI / 180) * (40 + length);
+          const y2 = 200 + Math.sin(angle * Math.PI / 180) * (40 + length);
+          mySVG.insertAdjacentHTML("beforeend", `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="black" stroke-width="3" />`);
+        }
+      }
+
+      if (currentIndex === 25) {
+        mySVG.insertAdjacentHTML("beforeend", `<circle cx="100" cy="150" r="30" fill="lightgray" />`);
+      }
+
+      if (currentIndex === 29) {
+        const photo = document.createElementNS("http://www.w3.org/2000/svg", "image");
+        photo.setAttribute("href", "AHC.png");
+        photo.setAttribute("x", "400");
+        photo.setAttribute("y", "400");
+        photo.setAttribute("width", "200");
+        photo.setAttribute("height", "200");
+        photo.style.cursor = "pointer";
+        photo.addEventListener("click", () => {
+          messageBox.textContent = "💖 Aşkım senin vurduğun yerde güller biter sen vur 💖 hep senin yanında olacağıma söz veriyorum seni hep mutlu edeceğimm ve Seni tanıdığım için çok şanslıyımm bunun farkındayım. Ve ve sana çok aşığımmmm \n yaptığım EŞŞEKliklerin farkındayım af olaa ama \n sen benim hayat enerjimsin çok kıymetlisin seni üzdüğüm için \n Özür Dilerim.";
+        });
+        mySVG.appendChild(photo);
+      }
+
+      currentIndex++;
+    }
+  </script>
+</body>
+</html>
